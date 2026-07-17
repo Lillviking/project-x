@@ -1,4 +1,4 @@
-# My website 
+# Homelab Dashboard 
 
 A small static website served with Nginx in Docker.
 

@@ -3,51 +3,190 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fridas Homelab</title>
+  <title>Fridas Homelab Dashboard</title>
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      max-width: 800px;
-      margin: 4rem auto;
-      padding: 0 1.5rem;
-      background: #f6f4ef;
-      color: #1f2933;
-      line-height: 1.6;
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --card-light: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --ok: #22c55e;
+      --planned: #f59e0b;
     }
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    main {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 4rem 0;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      font-weight: 700;
     }
 
     h1 {
-      margin-top: 0;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      margin: 0.4rem 0;
+    }
+
+    .intro {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--card-light), var(--card));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 1.25rem;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    .card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      background: var(--ok);
+    }
+
+    .dot.planned {
+      background: var(--planned);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
     code {
-      background: #eee;
+      background: rgba(255, 255, 255, 0.08);
       padding: 0.15rem 0.35rem;
-      border-radius: 4px;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>Fridas Homelab</h1>
-    <p>Det här är min första egna hemsida som körs i en Docker-container.</p>
+  <main>
+    <header>
+      <div class="eyebrow">Homelab</div>
+      <h1>Fridas Homelab Dashboard</h1>
+      <p class="intro">
+        En liten startsida för mina self-hosted tjänster och labbar.
+        Projektet används för att lära mig Linux, Docker, containers,
+        nätverk, serverdrift och observability.
+      </p>
+    </header>
 
-    <h2>Vad jag lär mig</h2>
-    <ul>
-      <li>Linux</li>
-      <li>Docker</li>
-      <li>Docker Compose</li>
-      <li>Self-hosting</li>
-      <li>Nginx</li>
-    </ul>
+    <section class="grid" aria-label="Homelab services">
+      <article class="card">
+        <div class="status">
+          <span class="dot"></span>
+          Running locally
+        </div>
+        <h2>Uptime Kuma</h2>
+        <p>Monitorering av tjänster via HTTP, ping och andra kontroller.</p>
+        <a href="http://localhost:3001">Öppna Uptime Kuma →</a>
+      </article>
 
-    <p>Körs med <code>nginx</code> på port <code>8080</code>.</p>
+      <article class="card">
+        <div class="status">
+          <span class="dot"></span>
+          Running locally
+        </div>
+        <h2>Homelab Dashboard</h2>
+        <p>Den här startsidan, serverad med Nginx i en Docker-container.</p>
+        <a href="http://localhost:8080">Öppna dashboard →</a>
+      </article>
+
+      <article class="card">
+        <div class="status">
+          <span class="dot planned"></span>
+          Planned
+        </div>
+        <h2>Grafana</h2>
+        <p>Framtida dashboards för metrics, loggar och observability.</p>
+        <a href="#">Kommer senare</a>
+      </article>
+
+      <article class="card">
+        <div class="status">
+          <span class="dot planned"></span>
+          Planned
+        </div>
+        <h2>Cortex Corner</h2>
+        <p>En enklare self-hosted version av Cortex Corner som framtida labb.</p>
+        <a href="#">Kommer senare</a>
+      </article>
+    </section>
+
+    <footer>
+      Körs lokalt via <code>Docker Compose</code>, <code>Nginx</code> och <code>WSL Ubuntu</code>.
+    </footer>
   </main>
 </body>
 </html>
